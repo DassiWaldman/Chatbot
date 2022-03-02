@@ -29,7 +29,7 @@ namespace ListPlugin
                 input.Callbacks.StartSession();
                 return new PluginOutput("List started. Enter 'Add' to add task. Enter 'Delete' to delete task. Enter 'List' to view all list. Enter 'Exit' to stop.", input.PersistentData);
             }
-            else if (input.Message == "exit")
+            else if (input.Message.ToLower() == "exit")
             {
                 input.Callbacks.EndSession();
                 return new PluginOutput("List stopped.", input.PersistentData);
@@ -46,10 +46,10 @@ namespace ListPlugin
             else if (input.Message.ToLower().StartsWith("delete"))
             {
                 var task = input.Message.Substring("delete".Length).Trim();
-                list.Remove(task);
+                list.RemoveAt(int.Parse(task)-1);
                 var data = new PersistentDataStructure(list);
 
-                return new PluginOutput($"Delete task: "+ task, JsonSerializer.Serialize(data));
+                return new PluginOutput($"Delete task namber: "+ task, JsonSerializer.Serialize(data));
             }
             else if (input.Message == "list")
             {

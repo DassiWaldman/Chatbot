@@ -20,7 +20,12 @@ namespace CountDown
             if (input.Message == "")
             {
                 input.Callbacks.StartSession();
-                return new PluginOutput("Enter number of seconds", input.PersistentData);
+                return new PluginOutput("Enter number of seconds to count down. Enter 'Exit' to stop.", input.PersistentData);
+            }
+            else if (input.Message.ToLower() == "exit")
+            {
+                input.Callbacks.EndSession();
+                return new PluginOutput("Countdown stopped.", input.PersistentData);
             }
             else
             {
