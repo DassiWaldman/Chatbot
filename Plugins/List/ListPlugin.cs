@@ -27,7 +27,7 @@ namespace ListPlugin
             if (input.Message == "")
             {
                 input.Callbacks.StartSession();
-                return new PluginOutput("List started. Enter 'Add' to add task. Enter 'Delete' to delete task. Enter 'List' to view all list. Enter 'Exit' to stop.", input.PersistentData);
+                return new PluginOutput("List started. Enter 'Add' to add task. Enter 'Delete' and then index to delete task. Enter 'List' to view all list. Enter 'Exit' to stop.", input.PersistentData);
             }
             else if (input.Message.ToLower() == "exit")
             {
@@ -46,10 +46,17 @@ namespace ListPlugin
             else if (input.Message.ToLower().StartsWith("delete"))
             {
                 var task = input.Message.Substring("delete".Length).Trim();
-                list.RemoveAt(int.Parse(task)-1);
-                var data = new PersistentDataStructure(list);
+                if (task == "")
+                    return new PluginOutput("Enter delete and then the index!");
+                if(int.Parse(task) >= 1 && int.Parse(task) <= list.Count)
+                {
+                    list.RemoveAt(int.Parse(task) - 1);
+                    var data = new PersistentDataStructure(list);
 
-                return new PluginOutput($"Delete task namber: "+ task, JsonSerializer.Serialize(data));
+                    return new PluginOutput($"Delete task namber: " + task, JsonSerializer.Serialize(data));
+                }
+                else
+                    return new PluginOutput("Error! The inserted index does not exist!");
             }
             else if (input.Message == "list")
             {
