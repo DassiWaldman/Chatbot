@@ -5,6 +5,7 @@ using CountTheWords;
 using DiceRoller;
 using Echo;
 using ListPlugin;
+using DateTimePlugin;
 using CountWord;
 using System;
 using System.Collections.Generic;
@@ -38,19 +39,19 @@ namespace Infrastructure
             {
                 return new ListPlugin.ListPlugin();
             }
-
             else if (id == CountTheWordsPlugin._Id)
             {
                 return new CountTheWordsPlugin();
             }
-
-
             else if (id == CountWordPlugin._Id)
             {
                 return new CountWordPlugin();
             }
+            else if (id == DateTimeP._Id)
+            {
+                return new DateTimeP();
+            }
             else
-
             {
                 throw new NotImplementedException();
             }
@@ -64,7 +65,8 @@ namespace Infrastructure
             EchoPlugin._Id,
             ListPlugin.ListPlugin._Id,
             CountTheWordsPlugin._Id,
-            CountWordPlugin._Id
+            CountWordPlugin._Id,
+            DateTimeP._Id
         };
     }
 }
